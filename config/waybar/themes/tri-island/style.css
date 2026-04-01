@@ -1,0 +1,123 @@
+/* ╔══════════════════════════════════════════════════════════╗ */
+/* ║  thyprsc — Waybar Stil Dosyası                          ║ */
+/* ║  3-island minimal siyah tasarım                         ║ */
+/* ╚══════════════════════════════════════════════════════════╝ */
+
+/* ── Genel ────────────────────────────────────────────────── */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "JetBrainsMono NF", "JetBrains Mono", "Noto Sans", sans-serif;
+    font-size: 13px;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+}
+
+/* Bar arka planı tamamen şeffaf — sadece adalar görünür */
+window#waybar {
+    background: transparent;
+    color: #ffffff;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+tooltip {
+    background-color: #0a0a0a;
+    border: 1px solid #222222;
+    border-radius: 10px;
+    color: #ffffff;
+}
+
+tooltip label {
+    color: #ffffff;
+    padding: 4px 8px;
+}
+
+/* ── Adalar (Islands) — Konteynır Bazlı Tasarım ─────────────── */
+
+.modules-left,
+.modules-center,
+.modules-right {
+    background-color: rgba(0, 0, 0, 0.45);
+    border-radius: 12px;
+    margin: 4px 6px;
+    padding: 0 4px;
+    transition: all 0.3s ease;
+}
+
+/* ── Sol Ada — Workspaces ─────────────────────────────────── */
+
+#workspaces {
+    background: transparent;
+    padding: 0;
+}
+
+#workspaces button {
+    color: #555555;
+    padding: 3px 0;
+    margin: 3px 2px;
+    border-radius: 8px;
+    background: transparent;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 28px;
+}
+
+#workspaces button.active {
+    color: #ffffff;
+    background-color: rgba(51, 51, 51, 0.6);
+    font-weight: bold;
+}
+
+/* ── Orta Ada — Saat & Tarih ──────────────────────────────── */
+
+#clock {
+    color: #ffffff;
+    background: transparent;
+    padding: 2px 14px;
+    font-weight: bold;
+    font-size: 13.5px;
+}
+
+/* ── Sağ Ada — İkon Modülleri ─────────────────────────────── */
+
+#tray,
+#backlight,
+#pulseaudio,
+#network,
+#battery {
+    background: transparent;
+    color: #ffffff;
+    font-size: 15px;
+    padding: 0;
+    margin: 0;
+    min-width: 44px; /* Simetrik alan */
+    transition: all 0.3s ease;
+}
+
+/* Modüller arası ince ayırıcılar (Opsiyonel) */
+#backlight,
+#pulseaudio,
+#network,
+#battery {
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#battery.charging, #battery.plugged {
+    color: #a6e3a1;
+}
+
+#battery.critical:not(.charging) {
+    color: #f38ba8;
+}
+
+/* Hover efektleri — modül bazlı aydınlatma */
+#tray:hover,
+#backlight:hover,
+#pulseaudio:hover,
+#network:hover,
+#battery:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+}

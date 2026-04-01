@@ -1,0 +1,279 @@
+{
+    // ── Workspaces ───────────────────────────────────────────────
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{icon}",
+        "on-click": "activate"
+    },
+    // Numaralı workspaces (Tri-Island için)
+    "hyprland/workspaces#numbers": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "10"
+        },
+        "on-click": "activate",
+        "sort-by-number": true
+    },
+    // İsimli workspaces (Glass-Edge için)
+    "hyprland/workspaces#names": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{name}",
+        "on-click": "activate"
+    },
+    // ── Window ───────────────────────────────────────────────────
+    "hyprland/window": {
+        "format": "{title}",
+        "max-length": 40,
+        "separate-outputs": true
+    },
+    // ── Clock ────────────────────────────────────────────────────
+    "clock": {
+        "format": "{:%H:%M}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>"
+    },
+    "clock#detailed": {
+        "format": "{:%H:%M  |  %d %b}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>"
+    },
+    "clock#calendar": {
+        "format": "{:%H:%M}",
+        "format-alt": "{:%d/%m/%Y}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "year",
+            "mode-mon-col": 3,
+            "weeks-pos": "right",
+            "on-scroll": 1,
+            "format": {
+                "months": "<span color='#ffffff'><b>{}</b></span>",
+                "days": "<span color='#cccccc'>{}</span>",
+                "weeks": "<span color='#888888'>W{}</span>",
+                "weekdays": "<span color='#ffffff'><b>{}</b></span>",
+                "today": "<span color='#ffffff'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions": {
+            "on-click-right": "mode",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
+    },
+    // ── Backlight ────────────────────────────────────────────────
+    "backlight": {
+        "format": "󰃠",
+        "tooltip-format": "Parlaklık: {percent}%",
+        "on-scroll-up": "~/.config/hypr/scripts/brightness.sh all-up",
+        "on-scroll-down": "~/.config/hypr/scripts/brightness.sh all-down"
+    },
+    "backlight#detailed": {
+        "format": "{icon} {percent}%",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "on-scroll-up": "~/.config/hypr/scripts/brightness.sh all-up",
+        "on-scroll-down": "~/.config/hypr/scripts/brightness.sh all-down"
+    },
+    // ── Audio ────────────────────────────────────────────────────
+    "pulseaudio": {
+        "format": "{icon}",
+        "format-muted": "󰝟",
+        "format-icons": {
+            "default": [
+                "󰕿",
+                "󰖀",
+                "󰕾"
+            ]
+        },
+        "on-click": "~/.config/hypr/scripts/volume.sh mute",
+        "on-click-right": "pavucontrol",
+        "on-scroll-up": "~/.config/hypr/scripts/volume.sh up",
+        "on-scroll-down": "~/.config/hypr/scripts/volume.sh down"
+    },
+    "pulseaudio#detailed": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟 Mute",
+        "format-icons": {
+            "default": [
+                "",
+                "",
+                "󰕾"
+            ]
+        },
+        "on-click": "~/.config/hypr/scripts/volume.sh mute",
+        "on-click-right": "pavucontrol",
+        "on-scroll-up": "~/.config/hypr/scripts/volume.sh up",
+        "on-scroll-down": "~/.config/hypr/scripts/volume.sh down"
+    },
+    // ── Network ──────────────────────────────────────────────────
+    "network": {
+        "format-wifi": "󰤨",
+        "format-ethernet": "󰈀",
+        "format-disconnected": "󰖪",
+        "tooltip-format": "{essid} - {ipaddr}",
+        "on-click": "~/.config/hypr/scripts/rofi-wifi.sh"
+    },
+    "network#detailed": {
+        "format-wifi": "  {essid}",
+        "format-ethernet": "󰈀 Wired",
+        "format-disconnected": "󰖪 Offline",
+        "on-click": "~/.config/hypr/scripts/rofi-wifi.sh"
+    },
+    // ── Battery ──────────────────────────────────────────────────
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}",
+        "format-charging": "󰂄",
+        "format-icons": [
+            "󰂎",
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ],
+        "on-click": "~/.config/hypr/scripts/powermenu.sh"
+    },
+    "battery#detailed": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "on-click": "~/.config/hypr/scripts/powermenu.sh"
+    },
+    // ── Tray & Power ─────────────────────────────────────────────
+    "tray": {
+        "icon-size": 16,
+        "spacing": 10
+    },
+    "custom/power": {
+        "format": "⏻",
+        "on-click": "~/.config/hypr/scripts/powermenu.sh",
+        "tooltip": false
+    },
+    // ── Groups (Dynamic Island) ──────────────────────────────────
+    "group/dynamic-island": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 500,
+            "children-class": "dynamic-child",
+            "transition-left-to-right": true
+        },
+        "modules": [
+            "clock",
+            "pulseaudio",
+            "backlight",
+            "battery",
+            "network"
+        ]
+    },
+    // ── Media Player ──────────────────────────────────────────────
+    "mpris": {
+        "format": " {player_icon} {title} - {artist} ",
+        "format-paused": " {status_icon} <i>{title} - {artist}</i> ",
+        "player-icons": {
+            "default": "▶",
+            "spotify": "",
+            "firefox": ""
+        },
+        "status-icons": {
+            "paused": "⏸"
+        },
+        "max-length": 35,
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl next"
+    },
+    // ── Microphone ────────────────────────────────────────────────
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": " Muted",
+        "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+        "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +5%",
+        "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -5%"
+    },
+    // ── System Resources ──────────────────────────────────────────
+    "cpu": {
+        "format": " {usage}%",
+        "tooltip": true,
+        "on-click": "kitty -e htop"
+    },
+    "memory": {
+        "format": " {}%",
+        "tooltip": true,
+        "on-click": "kitty -e htop"
+    },
+    "temperature": {
+        "critical-threshold": 80,
+        "format": "{icon} {temperatureC}°C",
+        "format-icons": [
+            "",
+            "",
+            ""
+        ]
+    },
+    // ── Bluetooth ─────────────────────────────────────────────────
+    "bluetooth": {
+        "format": "",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂱 {device_alias}",
+        "tooltip-format": "{controller_alias}\n{num_connections} connected",
+        "on-click": "blueman-manager"
+    },
+    // ── Updates (Arch/Pacman) ─────────────────────────────────────
+    "custom/updates": {
+        "format": "󰚰  {}",
+        "exec": "checkupdates 2>/dev/null | wc -l || echo 0",
+        "interval": 3600,
+        "tooltip": true,
+        "on-click": "kitty -e sudo pacman -Syu",
+        "signal": 8
+    },
+    // ── Network Speed ─────────────────────────────────────────────
+    "network#speed": {
+        "format": "  {bandwidthDownBytes}   {bandwidthUpBytes} ",
+        "interval": 2,
+        "tooltip-format": "{essid} - {ipaddr}",
+        "on-click": "~/.config/hypr/scripts/rofi-wifi.sh"
+    },
+    "custom/archlogo": {
+        "format": "",
+        "tooltip": "Launch Rofi",
+        "on-click": "rofi -show drun"
+    }
+}

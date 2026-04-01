@@ -1,0 +1,160 @@
+/* Minimalist Dark Theme for SwayNC */
+
+* {
+  font-family: "JetBrainsMono Nerd Font", "Inter", sans-serif;
+  font-weight: bold;
+}
+
+.control-center {
+  background: rgba(30, 30, 46, 0.95);
+  border-radius: 12px;
+  border: 2px solid #313244;
+}
+
+.control-center-list {
+  background: transparent;
+}
+
+.control-center-list-placeholder {
+  opacity: 0.5;
+}
+
+.control-center-list-empty {
+  opacity: 0.5;
+}
+
+.floating-notifications {
+  background: transparent;
+}
+
+.blank-window {
+  background: transparent;
+}
+
+.widget-title {
+  color: #cdd6f4;
+  margin: 8px;
+  font-size: 1.5rem;
+}
+
+.widget-title>button {
+  font-size: initial;
+  color: #cdd6f4;
+  text-shadow: none;
+  background: #45475a;
+  border: 2px solid #313244;
+  border-radius: 8px;
+}
+
+.widget-title>button:hover {
+  background: #585b70;
+}
+
+.widget-dnd {
+  color: #cdd6f4;
+  margin: 8px;
+  font-size: 1.1rem;
+}
+
+.widget-dnd>switch {
+  font-size: initial;
+  border-radius: 8px;
+  background: #45475a;
+  border: 2px solid #313244;
+}
+
+.widget-dnd>switch:checked {
+  background: #89b4fa;
+}
+
+.widget-dnd>switch slider {
+  background: #cdd6f4;
+  border-radius: 4px;
+}
+
+.widget-label {
+  margin: 8px;
+}
+
+.widget-label>label {
+  font-size: 1.1rem;
+}
+
+.widget-mpris {
+  color: #cdd6f4;
+  background: #313244;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 12px;
+}
+
+.widget-mpris-player {
+  padding: 8px;
+  margin: 8px;
+}
+
+.widget-mpris-title {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.widget-mpris-subtitle {
+  font-size: 1.1rem;
+}
+
+.notification-row {
+  outline: none;
+  margin: 8px;
+  font-size: 14px;
+}
+
+.notification-row:focus {
+  background: transparent;
+}
+
+.notification {
+  border-radius: 12px;
+  margin: 6px 12px;
+  background: rgba(49, 50, 68, 0.9);
+  padding: 10px;
+  border: 2px solid #45475a;
+}
+
+.notification-content {
+  background: transparent;
+  padding: 6px;
+  border-radius: 12px;
+}
+
+.close-button {
+  background: #f38ba8;
+  color: #1e1e2e;
+  text-shadow: none;
+  padding: 0;
+  border-radius: 100%;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.close-button:hover {
+  box-shadow: none;
+  background: #eba0ac;
+  transition: all 0.15s ease-in-out;
+  border: none;
+}
+
+.notification-default-action,
+.notification-action {
+  padding: 4px;
+  margin: 0;
+  box-shadow: none;
+  background: transparent;
+  border: 1px solid #45475a;
+  color: #cdd6f4;
+}
+
+.notification-default-action:hover,
+.notification-action:hover {
+  -gtk-icon-effect: none;
+  background: #45475a;
+}

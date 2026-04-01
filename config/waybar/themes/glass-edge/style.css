@@ -1,0 +1,104 @@
+/* ╔══════════════════════════════════════════════════════════╗ */
+/* ║  thyprsc — Waybar Stil Dosyası                          ║ */
+/* ║  Glass Edge — Full width top bar with blur              ║ */
+/* ╚══════════════════════════════════════════════════════════╝ */
+
+* {
+    font-family: "Inter", "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+window#waybar {
+    background-color: rgba(10, 10, 10, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: #cdd6f4;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+#workspaces {
+    background: transparent;
+    margin: 4px 8px;
+}
+
+#workspaces button {
+    padding: 0 10px;
+    color: #6c7086;
+    background: transparent;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+#workspaces button.active {
+    color: #89b4fa;
+    border-bottom: 2px solid #89b4fa;
+}
+
+#workspaces button:hover {
+    color: #f5e0dc;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#clock,
+#backlight,
+#pulseaudio,
+#network,
+#battery,
+#tray,
+#window,
+#custom-power {
+    padding: 0 12px;
+    margin: 4px 2px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+#clock {
+    color: #f5e0dc;
+    font-weight: 700;
+    background: rgba(137, 180, 250, 0.1);
+    border: 1px solid rgba(137, 180, 250, 0.2);
+}
+
+#battery.charging, #battery.plugged {
+    color: #a6e3a1;
+    background: rgba(166, 227, 161, 0.1);
+    border: 1px solid rgba(166, 227, 161, 0.2);
+}
+
+#battery.critical:not(.charging) {
+    color: #f38ba8;
+    background: rgba(243, 139, 168, 0.1);
+    border: 1px solid rgba(243, 139, 168, 0.2);
+}
+
+#window {
+    background: transparent;
+    border: none;
+    font-style: italic;
+    color: #a6adc8;
+}
+
+#custom-power {
+    color: #f38ba8;
+    background: rgba(243, 139, 168, 0.1);
+    border: 1px solid rgba(243, 139, 168, 0.2);
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#tray {
+    padding: 0 10px;
+}
+
+tooltip {
+    background: #1e1e2e;
+    border: 1px solid #313244;
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: #cdd6f4;
+}
