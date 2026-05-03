@@ -10,7 +10,7 @@ source "$SCRIPT_DIR/utils.sh"
 
 # ── Tema Ayarları ────────────────────────────────────────────
 
-GTK_THEME="catppuccin-macchiato-mauve-standard+default"
+GTK_THEME="catppuccin-mocha-sky-standard+default"
 ICON_THEME="Papirus-Dark"
 FONT="Noto Sans 11"
 CURSOR_THEME="Bibata-Modern-Classic"

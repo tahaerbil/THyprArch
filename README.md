@@ -1,46 +1,78 @@
 # thyprsc 🎨
-Modern, minimal, and highly customizable Hyprland setup.
 
-## ✨ Features
-* **Hyprland** Window Manager configuration
-* **Waybar** custom minimal 3-island design
-* **Theme Switching Engine** (Support for various themes like Catppuccin, Nord, Tokyo Night, etc.)
-* Automated Installation Scripts for Arch Linux (pacman configuration, dependencies, nvidia setup)
-* Utility scripts for system management
+> **Modern, minimal ve yüksek düzeyde modüler Hyprland ekosistemi.**
 
-## 🚀 Installation (Coming Soon)
-The installation script is currently in testing and development phase. 
-Once completed, you will be able to install this setup securely and easily on your Arch Linux system.
+`thyprsc`, Arch Linux sistemler için tasarlanmış, performansı ve estetiği ön planda tutan bir "post-install" otomasyon ve konfigürasyon projesidir. Sadece bir dotfiles deposu değil, aynı zamanda sisteminizi optimize eden akıllı bir kurulum aracıdır.
+
+---
+
+## 🌟 Öne Çıkan Özellikler
+
+*   **📦 Akıllı Modüler Kurulum:** Pacman optimizasyonundan NVIDIA sürücülerine, Zsh yapılandırmasından servis yönetimine kadar her şeyi seçmeli olarak kurar.
+*   **🏝️ 3-Island Waybar:** Modern, şeffaf ve fonksiyonel "üç ada" tasarımı (Workspace, Saat/Tarih, Sistem Durumu).
+*   **🔄 Gelişmiş Dotfile Yönetimi:** `dotfiles.sh` motoru ile sistem ve repo arasında `check`, `diff`, `deploy` ve `pull` işlemleriyle tam senkronizasyon.
+*   **🎮 Üst Düzey Donanım Kontrolü:** Hem laptop ekranı hem de harici monitörler (DDC/CI) için senkronize parlaklık ve ses yönetimi.
+*   **🎨 Dinamik Tema Motoru:** Catppuccin, Nord ve Tokyo Night gibi popüler paletler arasında kolay geçiş desteği.
+
+---
+
+## 📂 Proje Mimarisi
+
+Proje, yönetimi kolaylaştırmak için kesin sınırlarla ayrılmıştır:
+
+| Dizin / Dosya | Açıklama |
+| :--- | :--- |
+| `scripts/` | **Motor Odası:** Kurulumu ve sistem ayarlarını yöneten modüler scriptler. |
+| `config/` | **Görünüm:** `~/.config` altına dağıtılan Hyprland, Waybar, Kitty, Rofi vb. dosyaları. |
+| `install.sh` | **Orkestra Şefi:** Tüm kurulum sürecini yöneten interaktif ana panel. |
+| `STRUCTURE.md` | **Mimari Kılavuz:** AI ve geliştiriciler için detaylı kod haritası. |
+
+---
+
+## 🚀 Hızlı Başlangıç
+
+Kurulum scripti interaktif bir menü sunar, böylece sadece ihtiyacınız olan modülleri seçebilirsiniz.
 
 ```bash
-# Example command (WIP)
-git clone https://github.com/yourusername/thyprsc.git
+# Depoyu klonlayın
+git clone https://github.com/tahaerbil/thyprsc.git
 cd thyprsc
+
+# Kurulumu başlatın
 chmod +x install.sh
 ./install.sh
 ```
 
-## 📂 Project Structure
-* `config/` - The core configuration files that will be placed in `~/.config/`
-  * `hypr/` - Hyprland configs, keybindings, and scripts (screenshot, theme-switch)
-  * `waybar/` - Waybar configs (`config.jsonc`, `style.css`)
-* `scripts/` - Modular installation/setup scripts
-  * `pacman.sh` - Pacman mirror and configuration optimizations
-  * `packages.sh` - Main system dependencies installer
-  * `nvidia.sh` - Nvidia proprietary drivers and hooks setup
-  * `dotfiles.sh` - Dotfiles deployment script
-  * ...and more.
-* `install.sh` - Main orchestrator script for the complete installation
-* `TEST_STATUS.md` - Development tracking and script testing status
-
-## 🖼️ Waybar Design
-The Waybar features a modern, clean, transparent background with three distinct black "islands":
-1. **Left:** Workspaces
-2. **Center:** Clock and Date (Hover/Click functionality)
-3. **Right:** System Icons (Brightness, Volume, Network)
-
-## 🤝 Contributing
-Feel free to open issues or submit pull requests. Any contributions you make are greatly appreciated.
+> [!TIP]
+> Hiçbir soru sormadan tam kurulum yapmak için `./install.sh --auto` komutunu kullanabilirsiniz.
 
 ---
-*Created by [yourname]*
+
+## 🛠️ Dotfile Senkronizasyonu
+
+`thyprsc` kendi içinde güçlü bir senkronizasyon motoruyla gelir. Konfigürasyonlarınızı yönetmek için:
+
+*   `./scripts/dotfiles.sh check`: Sistemdeki dosyaların güncelliğini kontrol eder.
+*   `./scripts/dotfiles.sh diff`: Repo ile sistem arasındaki kod farklarını gösterir.
+*   `./scripts/dotfiles.sh deploy`: Repodaki güncel ayarları sisteme uygular (yedek alarak).
+*   `./scripts/dotfiles.sh pull`: Sistemde yaptığınız değişiklikleri repoya aktarır.
+
+---
+
+## 🖼️ Görsel Tasarım
+
+*   **Hyprland:** Minimalist boşluklar, yumuşak animasyonlar ve fonksiyonel pencere kuralları.
+*   **Waybar:** 
+    *   **Sol:** Aktif iş alanları takibi.
+    *   **Orta:** Saat, tarih ve ajanda etkileşimi.
+    *   **Sağ:** Parlaklık, ses (farenin tekerleği ile kontrol edilebilir) ve ağ durumu.
+*   **Terminal:** Kitty + Zsh (Oh My Zsh & Plugins) ile güçlendirilmiş hızlı ve okunaklı shell deneyimi.
+
+---
+
+## 🤝 Katkıda Bulunun
+
+Hataları bildirmek, yeni özellikler önermek veya tema eklemek için Pull Request açabilir ya da Issue üzerinden iletişime geçebilirsiniz.
+
+---
+*Created with ❤️ by **tahaerbil***

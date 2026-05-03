@@ -43,6 +43,7 @@ KATEGORILER["Dosya Yönetimi"]=$(cat <<-EOF
     gvfs-mtp
     gvfs-gphoto2
     sshfs
+    yazi
 EOF
 )
 
@@ -63,16 +64,33 @@ KATEGORILER["Araçlar"]=$(cat <<-EOF
     kdeconnect
     hyprsunset
     bitwarden
+    ollama-cuda
+    neovim
+    okular
+    gwenview
+    vlc
 EOF
 )
 
+KATEGORILER["Geliştirme"]=$(cat <<-EOF
+    nodejs
+    npm
+    typescript
+    rust
+    cargo
+    rust-analyzer
+    rust-src
+EOF
+)
+
+
 KATEGORILER["AUR"]=$(cat <<-EOF
     zen-browser-bin
-    catppuccin-gtk-theme-macchiato
+    catppuccin-gtk-theme-mocha
     bibata-cursor-theme
-    sunshine
-    moonlight-qt
     wayfreeze-git
+    vscodium-bin
+    kvantum-theme-catppuccin-git
 EOF
 )
 
@@ -103,6 +121,10 @@ KATEGORILER["Oyun"]=$(cat <<-EOF
     vulkan-tools
     vulkan-icd-loader
     lib32-vulkan-icd-loader
+    lib32-fontconfig
+    lib32-pango
+    lib32-nss
+    lib32-libxft
 EOF
 )
 
@@ -113,6 +135,7 @@ KATEGORILER["Sistem"]=$(cat <<-EOF
     bluez
     bluez-utils
     blueman
+    nm-connection-editor
     pipewire
     pipewire-alsa
     pipewire-pulse
@@ -122,12 +145,15 @@ KATEGORILER["Sistem"]=$(cat <<-EOF
     pacman-contrib
     ddcutil
     tailscale
+    networkmanager
+    power-profiles-daemon
     flatpak
+    sddm
 EOF
 )
 
 KATEGORILER["Flatpak"]=$(cat <<-EOF
-    org.videolan.VLC
+    app.fluxer.Fluxer
 EOF
 )
 
@@ -138,6 +164,7 @@ SIRA=(
     "Hyprland"
     "Dosya Yönetimi"
     "Araçlar"
+    "Geliştirme"
     "Görünüm"
     "Fontlar"
     "Oyun"

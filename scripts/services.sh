@@ -17,7 +17,8 @@ SERVISLER=(
     "bluetooth.service"
     "fstrim.timer"
     "tailscaled.service"
-    "avahi-daemon.service"
+    "power-profiles-daemon.service"
+    "sddm.service"
 )
 
 # ── Servis Yönetimi ──────────────────────────────────────────
@@ -76,8 +77,8 @@ setup_hardware() {
         fi
     fi
 
-    # 3. Kullanıcıyı gerekli gruplara ekle (i2c ve Sunshine grupları birleştirildi)
-    local gruplar=("input" "video" "render" "i2c")
+    # 3. Kullanıcıyı gerekli gruplara ekle
+    local gruplar=("video" "render" "i2c")
     for grup in "${gruplar[@]}"; do
         if ! id -nG "$USER" | grep -qw "$grup"; then
             log_info "Kullanıcı $grup grubuna ekleniyor..."
@@ -91,30 +92,6 @@ setup_hardware() {
         fi
     done
 
-    # 4. uinput modülünü Sunshine için etkinleştir
-    if [[ ! -f "/etc/modules-load.d/uinput.conf" ]] || ! grep -qw "uinput" "/etc/modules-load.d/uinput.conf"; then
-        log_info "uinput modülü yapılandırılıyor..."
-        echo "uinput" | sudo tee /etc/modules-load.d/uinput.conf > /dev/null
-        if sudo modprobe uinput; then
-            log_success "uinput yapılandırıldı"
-        else
-            log_error "uinput modülü yüklenemedi!"
-        fi
-    else
-        log_skip "uinput modül kaydı"
-    fi
-
-    # 5. Sunshine udev kuralı
-    local udev_rule='/etc/udev/rules.d/85-sunshine.rules'
-    if [[ ! -f "$udev_rule" ]]; then
-        log_info "Sunshine udev kuralları oluşturuluyor..."
-        echo 'KERNEL=="uinput", SUBSYSTEM=="misc", OPTIONS+="static_node=uinput", TAG+="uaccess"' | sudo tee "$udev_rule" > /dev/null
-        sudo udevadm control --reload-rules > /dev/null 2>&1
-        sudo udevadm trigger > /dev/null 2>&1
-        log_success "Sunshine udev kuralları uygulandı"
-    else
-        log_skip "Sunshine udev kuralları"
-    fi
 }
 
 # ── Ana Akış ─────────────────────────────────────────────────

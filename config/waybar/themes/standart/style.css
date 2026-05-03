@@ -1,0 +1,60 @@
+* {
+    border: none;
+    border-radius: 0;
+    /* Köşeleri kestik, ekrana yapışık durur */
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 12px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: #000000;
+    /* Tam siyah */
+    color: #ffffff;
+    border-bottom: 1px solid #222222;
+    /* Çok hafif bir ayrım çizgisi */
+}
+
+#workspaces button {
+    padding: 0 10px;
+    color: #ffffff;
+    background: transparent;
+}
+
+#workspaces button.active {
+    background: #1793d1;
+    /* Arch mavisi */
+    color: #000000;
+}
+
+#custom-arch {
+    color: #1793d1;
+    padding: 0 12px;
+    font-size: 16px;
+}
+
+#clock,
+#cpu,
+#memory,
+#backlight,
+#pulseaudio,
+#network,
+#bluetooth,
+#battery {
+    padding: 0 10px;
+}
+
+/* Mikrofonu hoparlörden görsel olarak ayırmak istersen rengini değiştirebilirsin */
+#pulseaudio.microphone {
+    color: #fabd2f;
+    /* Turuncu tonu */
+}
+
+#memory.warning {
+    color: #f5c235; /* Sarı - Uyarı */
+}
+
+#memory.critical {
+    color: #f38ba8; /* Kırmızı - Kritik */
+    background-color: rgba(243, 139, 168, 0.2); /* Hafif kırmızı arka plan */
+}

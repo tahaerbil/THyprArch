@@ -6,7 +6,7 @@
 # ╚══════════════════════════════════════════════════════════╗
 
 # Ayarlar
-TEMP=5000
+TEMP=4000
 ICON="night-light-symbolic"
 
 # hyprsunset kurulu mu kontrol et

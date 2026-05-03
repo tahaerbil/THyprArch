@@ -1,0 +1,142 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 22,
+    "margin-top": 0,
+    "margin-bottom": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+    "spacing": 5,
+    "modules-left": [
+        "custom/arch",
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "cpu",
+        "memory",
+        "backlight",
+        "pulseaudio",
+        "pulseaudio#microphone",
+        "network",
+        "bluetooth",
+        "battery",
+        "space"
+    ],
+    "custom/arch": {
+        "format": "  ",
+        "tooltip": false,
+        "on-click": "rofi -show drun"
+    },
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "all-outputs": true
+    },
+    "clock": {
+        "format": "  {:%H:%M  |  %d/%m/%Y}",
+        "tooltip": false
+    },
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "on-scroll-up": "~/.config/hypr/scripts/brightness.sh all-up",
+        "on-scroll-down": "~/.config/hypr/scripts/brightness.sh all-down"
+    },
+    "pulseaudio": {
+        "format": "  {volume}%",
+        "format-muted": "  Muted",
+        "on-click": "pavucontrol",
+        "on-click-middle": "~/.config/hypr/scripts/volume.sh mute",
+        "on-scroll-up": "~/.config/hypr/scripts/volume.sh up",
+        "on-scroll-down": "~/.config/hypr/scripts/volume.sh down",
+        "max-volume": 150,
+        "scroll-step": 1
+    },
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": "  Muted",
+        "on-click": "pavucontrol",
+        "on-click-middle": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "on-scroll-up": "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SOURCE@ 1%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%-",
+        "scroll-step": 1
+    },
+    "network": {
+        "format-wifi": "  {essid}",
+        "format-disconnected": "󰖪  No WiFi",
+        "tooltip": false,
+        "on-click": "nm-connection-editor"
+    },
+    "bluetooth": {
+        "format": " {status}",
+        "format-disabled": "󰂲 Disabled",
+        "format-connected": "󰂱 {device_alias}",
+        "on-click": "blueman-manager",
+        "tooltip": false
+    },
+    "memory": {
+        "interval": 10,
+        "format": " {used:0.1f}G",
+        "max-usage": 90,
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "on-click": "kitty -e btop",
+        "tooltip": true,
+        "tooltip-format": "Memory: {used:0.1f}G / {total:0.1f}G ({percentage}%)"
+    },
+    "cpu": {
+        "interval": 5,
+        "format": "  {usage}%",
+        "max-usage": 100,
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "on-click": "kitty -e btop",
+        "tooltip": true,
+        "tooltip-format": "CPU Usage: {usage}%"
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰂄 {capacity}%",
+        "format-icons": [
+            "󰂎",
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ],
+        "on-click": "~/.config/hypr/scripts/powermenu.sh"
+    },
+    "space": {
+        "format": " ",
+        "tooltip": false
+    }
+}
