@@ -1,160 +1,199 @@
-/* Minimalist Dark Theme for SwayNC */
+/* 
+ * Avant-Garde Minimal SwayNC Theme
+ * Tasarım Felsefesi: Intentional Minimalism
+ */
+
+@define-color bg #09090b;       /* Derin Siyah */
+@define-color bg-alt #18181b;   /* Hafif aydınlatılmış (Kutular için) */
+@define-color bg-hover #27272a; /* Üzerine gelince (Hover) */
+@define-color fg #fafafa;       /* Beyaz metin */
+@define-color fg-dim #71717a;   /* Soluk metin (Saat, altbilgi) */
+@define-color accent #ffffff;   /* Vurgular */
+@define-color border #27272a;   /* Zayıf çerçeve */
 
 * {
-  font-family: "JetBrainsMono Nerd Font", "Inter", sans-serif;
-  font-weight: bold;
+    font-family: "Inter", "Roboto", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
 }
 
+/* -------------------------------------
+ * KONTROL MERKEZİ (SAĞ PANEL)
+ * ------------------------------------- */
 .control-center {
-  background: rgba(30, 30, 46, 0.95);
-  border-radius: 12px;
-  border: 2px solid #313244;
-}
-
-.control-center-list {
-  background: transparent;
-}
-
-.control-center-list-placeholder {
-  opacity: 0.5;
-}
-
-.control-center-list-empty {
-  opacity: 0.5;
-}
-
-.floating-notifications {
-  background: transparent;
-}
-
-.blank-window {
-  background: transparent;
+    background: @bg;
+    color: @fg;
+    border: 1px solid @border;
+    border-radius: 16px;
 }
 
 .widget-title {
-  color: #cdd6f4;
-  margin: 8px;
-  font-size: 1.5rem;
+    color: @fg;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 24px 20px 10px 20px;
 }
 
-.widget-title>button {
-  font-size: initial;
-  color: #cdd6f4;
-  text-shadow: none;
-  background: #45475a;
-  border: 2px solid #313244;
-  border-radius: 8px;
+.widget-title > button {
+    background: @bg-alt;
+    color: @fg-dim;
+    border: 1px solid @border;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 12px;
 }
 
-.widget-title>button:hover {
-  background: #585b70;
+.widget-title > button:hover {
+    background: @bg-hover;
+    color: @fg;
 }
 
+/* Rahatsız Etme Butonu */
 .widget-dnd {
-  color: #cdd6f4;
-  margin: 8px;
-  font-size: 1.1rem;
+    background: @bg-alt;
+    margin: 10px 20px;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid @border;
 }
 
-.widget-dnd>switch {
-  font-size: initial;
-  border-radius: 8px;
-  background: #45475a;
-  border: 2px solid #313244;
+.widget-dnd > switch {
+    background: @bg;
+    border-radius: 10px;
 }
 
-.widget-dnd>switch:checked {
-  background: #89b4fa;
+.widget-dnd > switch:checked {
+    background: @accent;
 }
 
-.widget-dnd>switch slider {
-  background: #cdd6f4;
-  border-radius: 4px;
-}
-
-.widget-label {
-  margin: 8px;
-}
-
-.widget-label>label {
-  font-size: 1.1rem;
-}
-
+/* Medya Oynatıcı (MPRIS) */
 .widget-mpris {
-  color: #cdd6f4;
-  background: #313244;
-  padding: 8px;
-  margin: 8px;
-  border-radius: 12px;
+    background: @bg-alt;
+    margin: 10px 20px;
+    border-radius: 12px;
+    border: 1px solid @border;
+    padding: 14px;
 }
 
-.widget-mpris-player {
-  padding: 8px;
-  margin: 8px;
+.widget-mpris .widget-mpris-player {
+    padding: 8px;
 }
 
-.widget-mpris-title {
-  font-weight: bold;
-  font-size: 1.25rem;
+.widget-mpris .widget-mpris-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: @fg;
 }
 
-.widget-mpris-subtitle {
-  font-size: 1.1rem;
+.widget-mpris .widget-mpris-subtitle {
+    font-size: 12px;
+    color: @fg-dim;
 }
 
-.notification-row {
-  outline: none;
-  margin: 8px;
-  font-size: 14px;
+/* Ses ve Parlaklık Sürgüleri */
+.widget-volume, .widget-backlight {
+    background: @bg-alt;
+    margin: 10px 20px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1px solid @border;
 }
 
-.notification-row:focus {
-  background: transparent;
+scale trough {
+    background: @bg;
+    border-radius: 10px;
+    min-height: 8px;
 }
 
+scale highlight {
+    background: @accent;
+    border-radius: 10px;
+}
+
+scale slider {
+    background: @accent;
+    border-radius: 50%;
+    min-width: 14px;
+    min-height: 14px;
+}
+
+/* -------------------------------------
+ * BİLDİRİMLER (POPUP VE LİSTE)
+ * ------------------------------------- */
+
+/* Ekrana Gelen Tekli Bildirimler (Popup) */
+.floating-notifications.background .notification-row .notification-background {
+    background: @bg;
+    border: 1px solid @border;
+    border-radius: 16px;
+    margin: 10px;
+    padding: 0;
+}
+
+/* Kontrol Merkezi İçindeki Bildirimler */
+.control-center .notification-row .notification-background {
+    background: @bg-alt;
+    border: 1px solid @border;
+    border-radius: 12px;
+    margin: 8px 20px;
+}
+
+/* Bildirim Kutusu Genel Ayarı */
 .notification {
-  border-radius: 12px;
-  margin: 6px 12px;
-  background: rgba(49, 50, 68, 0.9);
-  padding: 10px;
-  border: 2px solid #45475a;
+    border-radius: 12px;
+    margin: 0px;
+    padding: 16px;
 }
 
 .notification-content {
-  background: transparent;
-  padding: 6px;
-  border-radius: 12px;
+    background: transparent;
+    padding: 0;
 }
 
 .close-button {
-  background: #f38ba8;
-  color: #1e1e2e;
-  text-shadow: none;
-  padding: 0;
-  border-radius: 100%;
-  margin-top: 5px;
-  margin-right: 5px;
+    background: @bg-alt;
+    color: @fg;
+    border-radius: 8px;
+    min-width: 24px;
+    min-height: 24px;
 }
 
 .close-button:hover {
-  box-shadow: none;
-  background: #eba0ac;
-  transition: all 0.15s ease-in-out;
-  border: none;
+    background: @bg-hover;
 }
 
-.notification-default-action,
-.notification-action {
-  padding: 4px;
-  margin: 0;
-  box-shadow: none;
-  background: transparent;
-  border: 1px solid #45475a;
-  color: #cdd6f4;
+/* Bildirim Yazı Tipi */
+.summary {
+    font-size: 14px;
+    font-weight: 600;
+    color: @fg;
 }
 
-.notification-default-action:hover,
-.notification-action:hover {
-  -gtk-icon-effect: none;
-  background: #45475a;
+.time {
+    font-size: 11px;
+    font-weight: 500;
+    color: @fg-dim;
+}
+
+.body {
+    font-size: 13px;
+    font-weight: 400;
+    color: @fg-dim;
+    margin-top: 4px;
+}
+
+/* İlerleme Çubuğu (Ses / Parlaklık OSD için) */
+progressbar {
+    margin-top: 10px;
+}
+
+progressbar trough {
+    background: @bg-hover;
+    border-radius: 10px;
+    min-height: 6px;
+}
+
+progressbar > trough > progress {
+    background: @accent;
+    border-radius: 10px;
 }

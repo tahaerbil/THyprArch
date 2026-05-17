@@ -59,6 +59,7 @@ KATEGORILER["Araçlar"]=$(cat <<-EOF
     brightnessctl
     pavucontrol
     swaync
+    swayosd
     jq
     qt6-multimedia-ffmpeg
     kdeconnect

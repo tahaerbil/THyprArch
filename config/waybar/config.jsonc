@@ -15,6 +15,7 @@
         "clock"
     ],
     "modules-right": [
+        "tray",
         "cpu",
         "memory",
         "backlight",
@@ -22,8 +23,7 @@
         "pulseaudio#microphone",
         "network",
         "bluetooth",
-        "battery",
-        "space"
+        "battery"
     ],
     "custom/arch": {
         "format": "  ",
@@ -135,8 +135,8 @@
         ],
         "on-click": "~/.config/hypr/scripts/powermenu.sh"
     },
-    "space": {
-        "format": " ",
-        "tooltip": false
+    "tray": {
+        "icon-size": 16,
+        "spacing": 10
     }
 }

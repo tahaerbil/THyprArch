@@ -3,12 +3,6 @@
 # Ses OSD (On Screen Display) Scripti
 # wpctl ile sesi ayarlar ve notify-send ile ekranda gösterge çıkarır
 
-get_volume() {
-    # wpctl status'ten o anki master ses yüzdesini çek, örn: 0.45 -> 45
-    vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -o '[0-9.]*' | awk '{print int($1 * 100)}')
-    echo "$vol"
-}
-
 get_icon() {
     local current_val=$1
     if [ "$current_val" -eq 0 ]; then
@@ -23,15 +17,19 @@ get_icon() {
 }
 
 notify_user() {
-    local current_val=$(get_volume)
-    local is_muted=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -i 'MUTED')
+    # PipeWire/WirePlumber gecikmesini önlemek için status'ü SADECE BİR KERE alıyoruz
+    local status=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
 
     # Swaync/Mako için progress bar ekler (-h int:value). Ayrıca geçmişe kaydedilmemesi için transient flag'i eklendi.
-    if [ -n "$is_muted" ]; then
+    if [[ "$status" == *MUTED* ]]; then
         notify-send -h int:transient:1 -h string:x-canonical-private-synchronous:sys-notify -u low -i "audio-volume-muted" "Volume Muted" "Muted"
     else
+        # "Volume: 0.45" çıktısındaki ikinci sütunu (0.45) alıp 100 ile çarpıyoruz
+        local current_val=$(echo "$status" | awk '{print int($2 * 100)}')
         local icon_name=$(get_icon "$current_val")
-        notify-send -h int:transient:1 -h string:x-canonical-private-synchronous:sys-notify -u low -i "$icon_name" -h int:value:"$current_val" "Volume: ${current_val}%" ""
+        
+        # Bildirimi arka planda asenkron gönder (&) ki script anında sonlansın, gecikme hissettirmesin
+        notify-send -h int:transient:1 -h string:x-canonical-private-synchronous:sys-notify -u low -i "$icon_name" -h int:value:"$current_val" "Volume: ${current_val}%" "" &
     fi
 }
 

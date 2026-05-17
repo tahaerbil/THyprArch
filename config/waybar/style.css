@@ -40,6 +40,7 @@ window#waybar {
 #pulseaudio,
 #network,
 #bluetooth,
+#tray,
 #battery {
     padding: 0 10px;
 }

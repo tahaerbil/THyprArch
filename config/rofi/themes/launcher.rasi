@@ -1,0 +1,104 @@
+/**
+ * Avant-Garde Minimal Rofi Theme
+ * Tasarım Felsefesi: "Intentional Minimalism"
+ */
+
+configuration {
+    show-icons: true;
+    /* icon-theme: "Papirus"; */ /* İstersen sistemindeki ikon temasının adını buraya yazabilirsin */
+}
+
+* {
+    /* Renk Paleti (Monokrom & Premium Karanlık) */
+    bg:           #09090b; /* Derin uzay siyahı */
+    bg-alt:       #18181b; /* Hafif aydınlatılmış arkaplan */
+    fg:           #fafafa; /* Kırık beyaz metin */
+    fg-dim:       #71717a; /* Soluk metin (placeholder vb.) */
+    accent:       #ffffff; /* Vurgular için tam beyaz */
+    border-color: #27272a; /* Çok ince, zarif sınır çizgisi */
+    
+    background-color: transparent;
+    text-color:       @fg;
+    
+    /* Modern, temiz bir tipografi. Sisteminde Inter yoksa Roboto veya Sans kullanabilirsin */
+    font:             "Inter 11"; 
+}
+
+/* Ana Pencere */
+window {
+    width:            32%;           /* Çok geniş olmayan, odaklı bir tasarım */
+    border-radius:    16px;          /* Yumuşak köşeler */
+    background-color: @bg;
+    border:           1px solid;
+    border-color:     @border-color;
+    padding:          0px;
+}
+
+/* İç Kutu */
+mainbox {
+    padding:          24px;          /* Kenarlardan bolca nefes alma boşluğu (Whitespace) */
+    spacing:          20px;
+}
+
+/* Arama Çubuğu */
+inputbar {
+    background-color: @bg-alt;
+    border-radius:    10px;
+    padding:          14px 18px;
+    spacing:          12px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    text-color:       @fg-dim;
+    font:             "Inter Medium 11";
+}
+
+entry {
+    placeholder:      "Uygulama ara...";
+    placeholder-color: @fg-dim;
+    text-color:       @accent;
+    cursor:           text;
+}
+
+/* Uygulama Listesi */
+listview {
+    columns:          1;             /* Tek sütun, daha düzenli ve okunaklı */
+    lines:            6;             /* Çok fazla seçenekle kullanıcıyı boğmamak için 6 satır */
+    spacing:          6px;           /* Satırlar arası mükemmel boşluk */
+    scrollbar:        false;         /* Çirkin scrollbar'ı gizle */
+    border:           0px;
+    fixed-height:     true;
+}
+
+/* Liste Elemanları (Her bir uygulama) */
+element {
+    padding:          12px 18px;
+    border-radius:    8px;
+    spacing:          16px;
+    background-color: transparent;
+}
+
+element normal normal,
+element alternate normal {
+    background-color: transparent;
+}
+
+/* Seçili Eleman (Hover efekti gibi düşün) */
+element selected {
+    background-color: @bg-alt;       /* Hafif bir aydınlanma */
+    text-color:       @accent;
+    border:           1px solid;
+    border-color:     @border-color; /* Seçili ögeye zarif bir çerçeve */
+}
+
+element-text {
+    vertical-align:   0.5;           /* Yazıyı dikeyde ortala */
+    text-color:       inherit;
+    highlight:        none;          /* Default çirkin highlight'ı kapat */
+}
+
+element-icon {
+    size:             22px;          /* İkon boyutu */
+    vertical-align:   0.5;
+}
