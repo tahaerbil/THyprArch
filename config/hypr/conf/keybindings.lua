@@ -74,16 +74,17 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 
 -- Screenshot
 hl.bind("Print", hl.dsp.exec_cmd("/home/taha/.config/hypr/scripts/screenshot.sh area"))
-hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("/home/taha/.config/hypr/scripts/screenshot.sh full"))
+hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("/home/taha/.config/hypr/scripts/screenshot.sh menu"))
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd("/home/taha/.config/hypr/scripts/screenshot.sh full"))
 hl.bind(mainMod .. " + SHIFT + Print", hl.dsp.exec_cmd("/home/taha/.config/hypr/scripts/screenshot.sh window"))
-hl.bind(mainMod .. " + ALT + Print", hl.dsp.exec_cmd("/home/taha/.config/hypr/scripts/screenshot.sh menu"))
 
 -- Custom Apps/Scripts
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
 hl.bind(mainMod .. " + SHIFT + G", hl.dsp.exec_cmd("~/.config/hypr/scripts/night-light.sh"))
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("~/.config/hypr/scripts/clipboard.sh"))
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/wifimenu.sh"))
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("~/.config/hypr/scripts/waybar-theme.sh"))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallpaper.sh"))
 hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("~/.config/hypr/scripts/powermenu.sh"))
-hl.bind("XF86Calculator", hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort -calc-command \"echo -n '{result}' | wl-copy\""))
-hl.bind(mainMod .. " + period", hl.dsp.exec_cmd("rofimoji --action copy"))
+hl.bind("XF86Calculator", hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort -calc-command \"echo -n '{result}' | wl-copy\" -theme ~/.config/rofi/themes/launcher.rasi"))
+hl.bind(mainMod .. " + period", hl.dsp.exec_cmd("rofimoji --selector-args=\"-theme ~/.config/rofi/themes/launcher.rasi\" --action copy"))

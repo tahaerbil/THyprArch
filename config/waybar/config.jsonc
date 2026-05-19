@@ -28,7 +28,7 @@
     "custom/arch": {
         "format": "  ",
         "tooltip": false,
-        "on-click": "rofi -show drun"
+        "on-click": "rofi -show drun -theme ~/.config/rofi/themes/launcher.rasi"
     },
     "hyprland/workspaces": {
         "format": "{icon}",
@@ -76,10 +76,10 @@
         "scroll-step": 1
     },
     "network": {
-        "format-wifi": "  {essid}",
+        "format-wifi": "  {essid}",
         "format-disconnected": "󰖪  No WiFi",
         "tooltip": false,
-        "on-click": "nm-connection-editor"
+        "on-click": "~/.config/hypr/scripts/wifimenu.sh"
     },
     "bluetooth": {
         "format": " {status}",

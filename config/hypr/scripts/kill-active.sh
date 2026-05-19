@@ -9,8 +9,8 @@ window_data=$(hyprctl activewindow -j)
 pid=$(echo "$window_data" | jq -r '.pid')
 class=$(echo "$window_data" | jq -r '.class')
 
-# Eğer geçerli bir PID yoksa (boş masaüstü vb.) sessizce çık
-if [ "$pid" == "null" ] || [ "$pid" -le 0 ]; then
+# Eğer geçerli bir PID yoksa veya sayı değilse sessizce çık
+if [[ -z "$pid" || "$pid" == "null" || ! "$pid" =~ ^[0-9]+$ || "$pid" -le 0 ]]; then
     exit 0
 fi
 

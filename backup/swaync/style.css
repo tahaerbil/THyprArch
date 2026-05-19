@@ -1,0 +1,194 @@
+/* 
+ * Avant-Garde Minimal SwayNC Theme
+ * Orijinal varsayılan yapı üzerine inşa edilmiştir.
+ */
+
+@define-color bg rgba(9, 9, 11, 0.95);
+@define-color bg-alt #18181b;
+@define-color bg-hover #27272a;
+@define-color fg #fafafa;
+@define-color fg-dim #71717a;
+@define-color accent #ffffff;
+@define-color border #27272a;
+
+* {
+    font-family: "Inter", "Roboto", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* -------------------------------------
+ * BLANK WINDOW — Kontrol merkezi arkasındaki alan
+ * Şeffaf olmalı yoksa tüm ekranı kaplar
+ * ------------------------------------- */
+.blank-window {
+    background: transparent;
+}
+
+/* -------------------------------------
+ * KONTROL MERKEZİ (SAĞ PANEL)
+ * ------------------------------------- */
+.control-center {
+    background: @bg;
+    color: @fg;
+    border: 1px solid @border;
+    border-radius: 16px;
+}
+
+.control-center .control-center-list-placeholder {
+    opacity: 0.5;
+}
+
+.control-center .control-center-list {
+    background: transparent;
+}
+
+/* Widget: Başlık */
+.widget-title > label {
+    color: @fg;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 16px 16px 4px 16px;
+}
+
+.widget-title > button {
+    background: @bg-alt;
+    color: @fg-dim;
+    border: 1px solid @border;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 12px;
+    margin: 16px 16px 4px 0;
+}
+
+.widget-title > button:hover {
+    background: @bg-hover;
+    color: @fg;
+}
+
+/* Widget: Rahatsız Etme */
+.widget-dnd {
+    background: @bg-alt;
+    margin: 8px 16px;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid @border;
+}
+
+.widget-dnd > switch {
+    background: @bg;
+    border-radius: 10px;
+}
+
+.widget-dnd > switch:checked {
+    background: @accent;
+}
+
+/* Widget: Medya Oynatıcı (MPRIS) */
+.widget-mpris {
+    background: @bg-alt;
+    margin: 8px 16px;
+    border-radius: 12px;
+    border: 1px solid @border;
+    padding: 14px;
+}
+
+.widget-mpris .widget-mpris-player {
+    padding: 8px;
+}
+
+.widget-mpris .widget-mpris-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: @fg;
+}
+
+.widget-mpris .widget-mpris-subtitle {
+    font-size: 12px;
+    color: @fg-dim;
+}
+
+/* -------------------------------------
+ * BİLDİRİMLER
+ * ------------------------------------- */
+
+/* Floating bildirim popup — arka plan şeffaf, sadece kart görünür */
+.floating-notifications {
+    background: transparent;
+}
+
+.floating-notifications .notification {
+    box-shadow: none;
+}
+
+.floating-notifications.background .notification-row .notification-background {
+    background: @bg;
+    border: 1px solid @border;
+    border-radius: 16px;
+    margin: 6px 12px;
+    padding: 0;
+}
+
+/* Kontrol merkezi içindeki bildirimler */
+.control-center .notification-row .notification-background {
+    background: @bg-alt;
+    border: 1px solid @border;
+    border-radius: 12px;
+    margin: 6px 16px;
+}
+
+/* Bildirim kartı genel */
+.notification {
+    border-radius: 12px;
+    margin: 0;
+    padding: 14px;
+}
+
+.notification-content {
+    background: transparent;
+    padding: 0;
+}
+
+.close-button {
+    background: @bg-alt;
+    color: @fg;
+    border-radius: 8px;
+    min-width: 24px;
+    min-height: 24px;
+}
+
+.close-button:hover {
+    background: @bg-hover;
+}
+
+/* Bildirim tipografi */
+.summary {
+    font-size: 14px;
+    font-weight: 600;
+    color: @fg;
+}
+
+.time {
+    font-size: 11px;
+    font-weight: 500;
+    color: @fg-dim;
+}
+
+.body {
+    font-size: 13px;
+    font-weight: 400;
+    color: @fg-dim;
+    margin-top: 4px;
+}
+
+/* İlerleme çubuğu */
+progressbar trough {
+    background: @bg-hover;
+    border-radius: 10px;
+    min-height: 6px;
+}
+
+progressbar > trough > progress {
+    background: @accent;
+    border-radius: 10px;
+}

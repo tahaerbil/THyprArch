@@ -35,14 +35,13 @@ EOF
 )
 
 KATEGORILER["Dosya Yönetimi"]=$(cat <<-EOF
-    thunar
-    thunar-volman
-    thunar-archive-plugin
-    tumbler
-    gvfs
-    gvfs-mtp
-    gvfs-gphoto2
-    sshfs
+    dolphin
+    dolphin-plugins
+    ark
+    kde-cli-tools
+    kio-extras
+    ffmpegthumbs
+    kdegraphics-thumbnailers
     yazi
 EOF
 )
@@ -59,7 +58,6 @@ KATEGORILER["Araçlar"]=$(cat <<-EOF
     brightnessctl
     pavucontrol
     swaync
-    swayosd
     jq
     qt6-multimedia-ffmpeg
     kdeconnect
@@ -87,11 +85,9 @@ EOF
 
 KATEGORILER["AUR"]=$(cat <<-EOF
     zen-browser-bin
-    catppuccin-gtk-theme-mocha
     bibata-cursor-theme
     wayfreeze-git
     vscodium-bin
-    kvantum-theme-catppuccin-git
 EOF
 )
 

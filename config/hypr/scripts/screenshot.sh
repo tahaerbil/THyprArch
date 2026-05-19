@@ -42,7 +42,11 @@ copy_to_clipboard() {
     local file_path="$1"
     local uri="file://$file_path"
 
-    printf "%s" "$uri"              | wl-copy --type "text/uri-list"
+    # Görüntünün ham verisini kopyala (Discord, Web WhatsApp vb. yapıştırmak için)
+    wl-copy --type "image/png" < "$file_path"
+    
+    # Dosya yollarını (URI) arkasına ekle (Thunar/Dolphin içine yapıştırmak için)
+    printf "%s" "$uri"              | wl-copy --type "text/uri-list" --append
     printf "copy\n%s" "$uri"        | wl-copy --type "x-special/gnome-copied-files" --append
     printf "%s" "$uri"              | wl-copy --type "text/plain;charset=utf-8" --append
     printf "%s" "$uri"              | wl-copy --type "UTF8_STRING" --append
@@ -81,6 +85,7 @@ case "$1" in
         freeze_screen
         AREA=$(slurp $SLURP_ARGS)
         [[ -z "$AREA" ]] && { cleanup; exit 0; }
+        sleep 0.2 # Slurp çerçevesinin ekrandan silinmesi için kısacık bir süre bekle
         NAME=$(new_name)
         grim -g "$AREA" "$NAME"
         cleanup
@@ -100,6 +105,7 @@ case "$1" in
         freeze_screen
         AREA=$(slurp $SLURP_ARGS)
         [[ -z "$AREA" ]] && { cleanup; exit 0; }
+        sleep 0.2 # Slurp çerçevesinin ekrandan silinmesi için kısacık bir süre bekle
         TEMP_FILE="/tmp/screenshot_edit_$(date +%s).png"
         grim -g "$AREA" "$TEMP_FILE"
         cleanup
@@ -115,8 +121,8 @@ case "$1" in
 
     menu)
         freeze_screen
-        CHOICE=$(printf "  Tam Ekran\n󰒉  Alan Seç\n󱂬  Pencere\n󰏫  Düzenle (Satty)" | \
-            rofi -dmenu -p "Screenshot" -i)
+        CHOICE=$(printf "󰍹  Tam Ekran\n󰒉  Alan Seç\n󱂬  Pencere\n󰏫  Düzenle (Satty)" | \
+            rofi -dmenu -theme ~/.config/rofi/themes/launcher.rasi -p "Ekran Görüntüsü:" -i)
         cleanup
         case "$CHOICE" in
             *"Tam Ekran") $0 full ;;

@@ -25,7 +25,7 @@ list_themes() {
 }
 
 # Rofi ile tema seç
-selected_theme=$(list_themes | rofi -dmenu -p "󰗊 Waybar Teması Seç" -i -no-custom)
+selected_theme=$(list_themes | rofi -dmenu -theme ~/.config/rofi/themes/launcher.rasi -p "󰗊 Waybar Teması Seç" -i -no-custom)
 
 if [[ -z "$selected_theme" ]]; then
     exit 0

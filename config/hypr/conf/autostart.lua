@@ -16,13 +16,12 @@ local autostart_apps = {
     "waybar &",
     "hypridle &",
     "swaync &",
-    "swayosd-server &",
     -- "nm-applet &",
     "/usr/lib/kdeconnectd &",
     
-    -- Clipboard Yönetimi
-    "wl-paste --type text --watch cliphist store &",
-    "wl-paste --type image --watch cliphist store &",
+    -- Clipboard Yönetimi (Performans optimizasyonu: Maksimum 50 öğe saklanacak şekilde sınırlandırıldı)
+    "wl-paste --type text --watch cliphist -max-items 50 store &",
+    "wl-paste --type image --watch cliphist -max-items 50 store &",
 }
 
 hl.on("hyprland.start", function()

@@ -6,9 +6,18 @@
 # ║  (Ekran görüntülerini silinseler bile yedekten kurtarır) ║
 # ╚══════════════════════════════════════════════════════════╝
 
-selection=$(cliphist list | rofi -dmenu -p "Pano" -i)
+# Rofi menüsüne "Panoyu Temizle" seçeneğini en üste ekleyerek listeyi göster
+selection=$( (echo "󰃢  Panoyu Temizle"; cliphist list) | rofi -dmenu -theme ~/.config/rofi/themes/launcher.rasi -p "Pano:" -i)
 
 if [[ -z "$selection" ]]; then
+    exit 0
+fi
+
+# Eğer kullanıcı temizlemeyi seçtiyse
+if [[ "$selection" == "󰃢  Panoyu Temizle" ]]; then
+    cliphist wipe
+    notify-send -h string:x-canonical-private-synchronous:clipboard \
+        -u low -i "edit-clear-all" "Pano" "Pano geçmişi tamamen temizlendi."
     exit 0
 fi
 
