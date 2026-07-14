@@ -15,11 +15,11 @@ source "$SCRIPT_DIR/scripts/utils.sh"
 
 MODULLER=(
     "pacman.sh|🔧 Pacman Yapılandırma"
+    "locale.sh|🌐 Dil ve Yerel Ayarlar (Locale)"
     "packages.sh|📦 Paket Kurulumu"
     "nvidia.sh|🎮 NVIDIA Ayarları"
     "services.sh|⚙️  Systemd Servisleri"
     "dotfiles.sh|🔍 Dotfile Doğrulama"
-    "appearance.sh|🎨 Görünüm Ayarları (GTK/QT/Cursor)"
     "shell.sh|🐚 Zsh & Shell Yapılandırma"
     "user-dirs.sh|📁 Kullanıcı Dizinleri"
 )
@@ -79,8 +79,11 @@ run_module() {
     fi
 
     print_header "$modul_aciklama"
-    bash "$script_path" "${extra_args[@]}"
-    local exit_code=$?
+    
+    local exit_code=0
+    if ! bash "$script_path" "${extra_args[@]}"; then
+        exit_code=$?
+    fi
 
     if [[ $exit_code -eq 0 ]]; then
         log_success "${modul_aciklama} — tamamlandı"
@@ -178,13 +181,24 @@ show_menu() {
 # ── Tüm Modülleri Çalıştır ──────────────────────────────────
 
 run_all_modules() {
+    # Otomatik kurulumda onayları pas geçmek için AUTO_MODE'u geçici olarak true yapalım
+    local old_auto_mode="${AUTO_MODE:-false}"
+    export AUTO_MODE=true
+
     local basarili=0
     local basarisiz=0
 
     for modul in "${MODULLER[@]}"; do
         local dosya="${modul%%|*}"
         local aciklama="${modul#*|}"
-        run_module "$dosya" "$aciklama"
+        
+        # Dotfiles modülü çalışırken sadece kontrol etmekle kalmasın, direkt deploy etsin!
+        if [[ "$dosya" == "dotfiles.sh" ]]; then
+            run_module "$dosya" "$aciklama" "deploy"
+        else
+            run_module "$dosya" "$aciklama"
+        fi
+
         if [[ $? -eq 0 ]]; then
             ((basarili++)) || true
         else
@@ -192,6 +206,7 @@ run_all_modules() {
         fi
     done
 
+    export AUTO_MODE="$old_auto_mode"
     show_summary $basarili $basarisiz
 }
 
@@ -231,6 +246,16 @@ init_log() {
 # ── Ana Akış ─────────────────────────────────────────────────
 
 main() {
+    # Kök (root) kullanıcı kontrolü
+    if [[ $EUID -eq 0 ]]; then
+        echo ""
+        echo -e "${RED}${BOLD}✘ Hata: Bu script doğrudan root (sudo) olarak çalıştırılamaz!${NC}"
+        echo -e "  Lütfen normal kullanıcı olarak çalıştırın: ${GREEN}./install.sh${NC}"
+        echo -e "  Gerekli yerlerde sistem sizden sudo şifresi isteyecektir."
+        echo ""
+        exit 1
+    fi
+
     # Argüman kontrolü
     case "${1:-}" in
         --auto)

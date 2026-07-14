@@ -90,7 +90,7 @@ log_success "Yapılandırma dosyaları başarıyla taşındı."
 # ── Varsayılan Kabuk (Zsh Yapma) ─────────────────────────────
 
 ZSH_PATH=$(command -v zsh || echo "/usr/bin/zsh")
-CURRENT_SHELL=$(basename "$SHELL")
+CURRENT_SHELL=$(basename "${SHELL:-/bin/bash}")
 
 if [[ "$CURRENT_SHELL" == "zsh" ]]; then
     log_skip "Zsh zaten varsayılan kabuk."

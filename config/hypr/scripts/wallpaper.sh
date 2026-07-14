@@ -9,6 +9,7 @@
 WALLPAPER_DIRS=(
     "$HOME/Pictures/Wallpapers"
     "$HOME/.config/hypr/themes/wallpapers"
+    "$HOME/.config/hypr/wallpapers"
 )
 
 # awww daemon çalışmıyorsa başlat

@@ -23,6 +23,7 @@
         "pulseaudio#microphone",
         "network",
         "bluetooth",
+        "power-profiles-daemon",
         "battery"
     ],
     "custom/arch": {
@@ -134,6 +135,17 @@
             "󰁹"
         ],
         "on-click": "~/.config/hypr/scripts/powermenu.sh"
+    },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Güç Profili: {profile}\nSürücü: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "󰓅",
+            "balanced": "󰾆",
+            "power-saver": "󰒋"
+        }
     },
     "tray": {
         "icon-size": 16,

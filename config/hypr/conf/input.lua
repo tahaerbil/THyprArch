@@ -40,3 +40,9 @@ hl.device({
     name = "epic-mouse-v1",
     sensitivity = -0.5
 })
+
+-- Touchpad için scroll_method'u "2fg" olarak sabitle (Global scroll toggle'dan etkilenmemesi için)
+hl.device({
+    name = "syna32e4:00-06cb:cee7-touchpad",
+    scroll_method = "2fg"
+})

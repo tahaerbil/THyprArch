@@ -89,3 +89,10 @@ hl.window_rule({
     match = { class = "org.kde.polkit-kde-authentication-agent-1" },
     float = true,
 })
+
+hl.window_rule({
+    name = "float-calculator",
+    match = { class = "org.gnome.Calculator" },
+    float = true,
+})
+

@@ -11,42 +11,58 @@ source "$SCRIPT_DIR/utils.sh"
 
 setup_locales() {
     local locale_file="/etc/locale.gen"
-    local target_locale="en_US.UTF-8 UTF-8"
+    local targets=("en_US.UTF-8 UTF-8" "tr_TR.UTF-8 UTF-8")
+    local names=("İngilizce (en_US.UTF-8)" "Türkçe (tr_TR.UTF-8)")
+    local needs_update=false
+    local needs_gen=false
 
     if [[ ! -f "$locale_file" ]]; then
         log_error "locale.gen dosyası bulunamadı: $locale_file"
         return 1
     fi
 
-    # Zaten başındaki # kaldırılmışsa atla
-    if grep -q "^${target_locale}" "$locale_file"; then
-        log_skip "İngilizce (en_US.UTF-8) dil desteği → Zaten aktif"
+    for i in "${!targets[@]}"; do
+        local target="${targets[$i]}"
+        local name="${names[$i]}"
+
+        # Zaten başındaki # kaldırılmışsa atla
+        if grep -q "^${target}" "$locale_file"; then
+            log_skip "$name dil desteği → Zaten aktif"
+        else
+            needs_update=true
+        fi
+    done
+
+    if [[ "$needs_update" == "false" ]]; then
         return 0
     fi
 
-    echo -e "  ${YELLOW}⚠${NC}  İngilizce (en_US.UTF-8) dil desteği kapalı görünüyor."
-
-    if ask_confirm "İngilizce (en_US.UTF-8) dil desteği aktif edilsin mi? (Önerilir)"; then
+    if ask_confirm "Gerekli dil paketleri (İngilizce & Türkçe) aktif edilsin mi? (Önerilir)"; then
         backup_file "$locale_file"
         
-        # Sed ile başındaki # karakterini kaldır
-        sudo sed -i "s/^#\s*${target_locale}/${target_locale}/" "$locale_file"
+        for i in "${!targets[@]}"; do
+            local target="${targets[$i]}"
+            local name="${names[$i]}"
+
+            if ! grep -q "^${target}" "$locale_file"; then
+                # Sed ile başındaki # karakterini kaldır (başındaki boşlukları da hesaba katarak)
+                if sudo sed -i "s/^#\s*${target}/${target}/" "$locale_file"; then
+                    log_success "$name dil desteği etkinleştirildi"
+                    needs_gen=true
+                else
+                    log_error "$name dil desteği etkinleştirilemedi! Yetki sorunu olabilir."
+                fi
+            fi
+        done
         
-        if [[ $? -eq 0 ]]; then
-            log_success "$locale_file güncellendi"
-            
+        if [[ "$needs_gen" == "true" ]]; then
             log_info "Yerel ayarlar yeniden oluşturuluyor (locale-gen)..."
-            sudo locale-gen
-            
-            if [[ $? -eq 0 ]]; then
+            if sudo locale-gen; then
                 log_success "Yerel ayarlar başarıyla oluşturuldu"
             else
                 log_error "locale-gen çalıştırılırken sorun oluştu!"
                 return 1
             fi
-        else
-            log_error "Dosya düzenlenemedi! Yetki sorunu olabilir."
-            return 1
         fi
     fi
 }

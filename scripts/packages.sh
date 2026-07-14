@@ -24,8 +24,6 @@ KATEGORILER["Hyprland"]=$(cat <<-EOF
     kitty
     waybar
     rofi
-    rofi-calc
-    rofimoji
     qt5-wayland
     qt6-wayland
     polkit-kde-agent
@@ -75,10 +73,7 @@ KATEGORILER["Geliştirme"]=$(cat <<-EOF
     nodejs
     npm
     typescript
-    rust
-    cargo
-    rust-analyzer
-    rust-src
+    rustup
 EOF
 )
 
@@ -150,7 +145,9 @@ EOF
 )
 
 KATEGORILER["Flatpak"]=$(cat <<-EOF
+    org.gnome.Calculator
     app.fluxer.Fluxer
+    org.kde.knights
 EOF
 )
 

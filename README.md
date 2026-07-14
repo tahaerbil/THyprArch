@@ -8,6 +8,7 @@
 
 ## 🌟 Öne Çıkan Özellikler
 
+*   **🚀 Lua Tabanlı Hyprland Yapılandırması:** Geleneksel `.conf` dosyaları yerine, gücünü Lua programlama dilinden alan (`hyprland.lua`), son derece düzenli, okunabilir ve modüler bir pencere yöneticisi yapısı.
 *   **📦 Akıllı Modüler Kurulum:** Pacman optimizasyonundan NVIDIA sürücülerine, Zsh yapılandırmasından servis yönetimine kadar her şeyi seçmeli olarak kurar.
 *   **🏝️ 3-Island Waybar:** Modern, şeffaf ve fonksiyonel "üç ada" tasarımı (Workspace, Saat/Tarih, Sistem Durumu).
 *   **🔄 Gelişmiş Dotfile Yönetimi:** `dotfiles.sh` motoru ile sistem ve repo arasında `check`, `diff`, `deploy` ve `pull` işlemleriyle tam senkronizasyon.
@@ -61,7 +62,7 @@ chmod +x install.sh
 
 ## 🖼️ Görsel Tasarım
 
-*   **Hyprland:** Minimalist boşluklar, yumuşak animasyonlar ve fonksiyonel pencere kuralları.
+*   **Hyprland (Lua):** Gücünü Lua modüllerinden alan, minimalist boşluklar, yumuşak animasyonlar, akıllı pencere kuralları ve dinamik keybinding yapılandırması.
 *   **Waybar:** 
     *   **Sol:** Aktif iş alanları takibi.
     *   **Orta:** Saat, tarih ve ajanda etkileşimi.

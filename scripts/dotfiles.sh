@@ -26,9 +26,9 @@ files_match() {
     diff -q "$1" "$2" &>/dev/null
 }
 
-# Dizin karşılaştırması (.keep, deploy.sh vb. yoksayarak)
+# Dizin karşılaştırması (.keep, pull.sh vb. yoksayarak)
 dirs_match() {
-    diff -rq --exclude='.keep' --exclude='deploy.sh' --exclude='pull.sh' "$1" "$2" &>/dev/null
+    diff -rq --exclude='.keep' --exclude='pull.sh' "$1" "$2" &>/dev/null
 }
 
 # Terminal'e mi yazılıyor kontrolü (pipe/dosya güvenliği)
@@ -89,9 +89,26 @@ _check_item() {
             _check_fark_var=true
             return
         fi
+
         if dirs_match "$kaynak" "$hedef"; then
-            log_success "$isim → eşleşiyor"
-            ((_check_eslesen++))
+            # Özel Kontrol: Zsh için ek olarak ~/.zshrc kontrol et
+            if [[ "$isim" == "zsh" ]]; then
+                if [[ ! -f "$HOME/.zshrc" ]]; then
+                    log_error "$isim (.zshrc eksik) → dosya bulunamadı"
+                    ((_check_eksik++))
+                    _check_fark_var=true
+                elif files_match "$kaynak/zshrc" "$HOME/.zshrc"; then
+                    log_success "$isim (.zshrc dahil) → eşleşiyor"
+                    ((_check_eslesen++))
+                else
+                    log_warning "$isim (.zshrc farklı) → farklılık var"
+                    ((_check_farkli++))
+                    _check_fark_var=true
+                fi
+            else
+                log_success "$isim → eşleşiyor"
+                ((_check_eslesen++))
+            fi
         else
             log_warning "$isim → farklılık var"
             ((_check_farkli++))
@@ -154,11 +171,28 @@ _diff_item() {
             return
         fi
         local diff_output
-        diff_output=$(diff -r --exclude='.keep' --exclude='deploy.sh' --exclude='pull.sh' "$cflag" "$kaynak" "$hedef" 2>/dev/null) || true
+        diff_output=$(diff -r --exclude='.keep' --exclude='pull.sh' "$cflag" "$kaynak" "$hedef" 2>/dev/null) || true
         if [[ -n "$diff_output" ]]; then
             echo -e "\n${BOLD}${YELLOW}── $isim ──${NC}"
             echo "$diff_output"
             _diff_bulundu=true
+        fi
+
+        # Özel Kontrol: Zsh için ~/.zshrc diff göster
+        if [[ "$isim" == "zsh" ]]; then
+            if [[ ! -f "$HOME/.zshrc" ]]; then
+                echo -e "\n${BOLD}${RED}── zsh (.zshrc eksik) ──${NC}"
+                echo -e "${DIM}.zshrc dosyası sistemde bulunamadı.${NC}"
+                _diff_bulundu=true
+            else
+                local diff_output_zsh
+                diff_output_zsh=$(diff "$cflag" "$kaynak/zshrc" "$HOME/.zshrc" 2>/dev/null) || true
+                if [[ -n "$diff_output_zsh" ]]; then
+                    echo -e "\n${BOLD}${YELLOW}── zsh (~/.zshrc) ──${NC}"
+                    echo "$diff_output_zsh"
+                    _diff_bulundu=true
+                fi
+            fi
         fi
     else
         if [[ ! -f "$hedef" ]]; then
@@ -197,24 +231,16 @@ _deploy_item() {
     local hedef="$CONFIG_TARGET/$isim"
 
     if [[ "$tip" == "dir" ]]; then
-        # Özel deploy script'i kontrolü
-        if [[ -f "$kaynak/deploy.sh" ]]; then
-            log_info "$isim → özel deploy script'i bulundu, çalıştırılıyor..."
-            chmod +x "$kaynak/deploy.sh"
-            
-            # Özel script'i çalıştır
-            if bash "$kaynak/deploy.sh"; then
-                log_success "$isim → özel deploy başarılı"
-                ((_deploy_basarili++))
-            else
-                log_error "$isim → özel deploy başarısız"
-                ((_deploy_hata++))
+        # Zsh durumunda hem klasörün hem de ~/.zshrc'nin eşleşmesini zorunlu tut
+        local zsh_match=true
+        if [[ "$isim" == "zsh" ]]; then
+            if [[ ! -f "$HOME/.zshrc" ]] || ! files_match "$kaynak/zshrc" "$HOME/.zshrc"; then
+                zsh_match=false
             fi
-            return
         fi
 
         # Zaten aynıysa ve force yoksa atla
-        if [[ "$_deploy_force" != "true" ]] && [[ -d "$hedef" ]] && dirs_match "$kaynak" "$hedef"; then
+        if [[ "$_deploy_force" != "true" ]] && [[ -d "$hedef" ]] && dirs_match "$kaynak" "$hedef" && $zsh_match; then
             log_skip "$isim → zaten güncel"
             ((_deploy_atlanan++))
             return
@@ -247,6 +273,42 @@ _deploy_item() {
         if [[ -d "$hedef" ]]; then
             find "$hedef" -name '.keep' -delete 2>/dev/null
         fi
+
+        # ─── ÖZEL DAĞITIM VE YENİLEME ENTEGRASYONLARI ───
+
+        # 1. Zsh (.zshrc ev dizinine kopyalama ve yedekleme)
+        if [[ "$isim" == "zsh" ]]; then
+            if [[ -f "$hedef/zshrc" ]]; then
+                backup_file "$HOME/.zshrc" || true
+                cp "$hedef/zshrc" "$HOME/.zshrc"
+                log_success "zshrc → ~/.zshrc olarak yerleştirildi"
+            fi
+        fi
+
+        # 2. Hyprland (Scriptleri çalıştırılabilir yap ve Hyprland'i tetikle)
+        if [[ "$isim" == "hypr" ]]; then
+            chmod +x "$hedef/scripts/"*.sh 2>/dev/null || true
+            hyprctl reload 2>/dev/null || true
+            log_success "Hyprland yapılandırması yenilendi ve script yetkileri ayarlandı"
+        fi
+
+        # 3. Waybar (Waybar'ı yenile veya başlat)
+        if [[ "$isim" == "waybar" ]]; then
+            if pgrep -x "waybar" > /dev/null; then
+                pkill -SIGUSR2 waybar
+                log_success "Waybar yapılandırması yenilendi (SIGUSR2)"
+            else
+                waybar > /dev/null 2>&1 &
+                log_success "Waybar arka planda başlatıldı"
+            fi
+        fi
+
+        # 4. SwayNC (SwayNC bildirim merkezini yenile)
+        if [[ "$isim" == "swaync" ]]; then
+            swaync-client -R 2>/dev/null || true
+            log_success "SwayNC bildirim merkezi yenilendi"
+        fi
+
         log_success "$isim → kopyalandı"
         ((_deploy_basarili++))
     else
@@ -294,7 +356,15 @@ _pull_item() {
             return
         fi
 
-        if dirs_match "$kaynak" "$sistem_kaynak"; then
+        # Zsh durumunda ev dizinindeki ~/.zshrc eşleşmesini de zorunlu kıl
+        local zsh_match=true
+        if [[ "$isim" == "zsh" ]]; then
+            if [[ ! -f "$HOME/.zshrc" ]] || ! files_match "$kaynak/zshrc" "$HOME/.zshrc"; then
+                zsh_match=false
+            fi
+        fi
+
+        if dirs_match "$kaynak" "$sistem_kaynak" && $zsh_match; then
             log_skip "$isim → zaten güncel"
             ((_pull_atlanan++))
             return
@@ -332,6 +402,12 @@ _pull_item() {
                 mkdir -p "$keep_parent"
                 touch "$kaynak/$keep"
             done
+
+            # Özel Durum: Zsh için ~/.zshrc dosyasını da repo altındaki zsh/zshrc olarak çek
+            if [[ "$isim" == "zsh" ]] && [[ -f "$HOME/.zshrc" ]]; then
+                cp "$HOME/.zshrc" "$kaynak/zshrc"
+                log_success "zshrc ← ~/.zshrc sistemden repo'ya çekildi"
+            fi
 
             log_success "$isim → repo'ya çekildi"
             ((_pull_basarili++))

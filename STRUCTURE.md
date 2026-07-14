@@ -36,22 +36,20 @@ Installation and system management scripts. Most scripts source `utils.sh` for c
 
 These files are deployed to `~/.config/` via `dotfiles.sh deploy`.
 
-### [hypr/](file:///home/taha/Belgeler/projeler/coding/thyprsc/config/hypr/) - Hyprland Config
-- `hyprland.conf`: Modular main config that sources files from `conf/`.
-- `conf/`: Contains categorized settings (keybindings, windowrules, input, etc.).
-- `scripts/`: Runtime scripts like `screenshot.sh` and `theme-switch.sh`.
+### [hypr/](file:///home/taha/Belgeler/projeler/coding/thyprsc/config/hypr/) - Hyprland Lua Config 🚀
+- `hyprland.lua`: The elegant Lua-based main orchestrator that boots the WM and loads modular configs from `conf/`.
+- `conf/`: Contains modular Lua settings (`monitors.lua`, `programs.lua`, `environment.lua`, `permissions.lua`, `look-and-feel.lua`, `misc.lua`, `input.lua`, `keybindings.lua`, `windows-and-workspaces.lua`, `autostart.lua`).
+- `scripts/`: Premium runtime shell scripts (`screenshot.sh`, `brightness.sh`, `volume.sh`, `clipboard.sh`, etc.) triggered via Lua keybindings.
 
 ### [waybar/](file:///home/taha/Belgeler/projeler/coding/thyprsc/config/waybar/) - Status Bar
 - `config.jsonc`: Layout definition (3-island design).
 - `style.css`: Visual styling and animations for the bar.
 
 ### Other Folders
-- `bash/`: Bash shell configuration (`bashrc`, `bash_profile`).
 - `kitty/`: Terminal emulator configuration.
-- `rofi/`: App launcher and menu styling.
-- `swaync/`: Notification center configuration.
-- `zsh/`: Zsh shell configuration and aliases.
-- `themes/`: Local theme assets.
+- `rofi/`: App launcher, custom calculator, and emoji menus.
+- `swaync/`: Notification center configuration and styles.
+- `zsh/`: Zsh shell configurations and aliases.
 
 ---
 

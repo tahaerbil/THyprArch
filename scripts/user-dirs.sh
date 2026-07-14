@@ -29,6 +29,15 @@ main() {
         return 1
     fi
 
+    # Sistemde tr_TR locale desteği var mı kontrol et
+    if ! locale -a 2>/dev/null | grep -qi "tr_TR"; then
+        log_warning "Sisteminizde Türkçe ('tr_TR') dil desteği yüklü değil!"
+        log_info "Kullanıcı dizinleri varsayılan sistem dilinde yapılandırılıyor..."
+        xdg-user-dirs-update
+        log_success "XDG kullanıcı dizinleri başarıyla yapılandırıldı."
+        return 0
+    fi
+
     local locale_file="$HOME/.config/user-dirs.locale"
     local hedef_locale="tr_TR"
 

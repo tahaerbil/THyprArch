@@ -168,6 +168,11 @@ ini_set() {
 
     ensure_ini_file "$filepath" "$section"
 
+    # Eğer dosya var ama hedeflenen [section] satırı yoksa ekle
+    if ! grep -q "^\[${section}\]" "$filepath" 2>/dev/null; then
+        echo -e "\n[${section}]" >> "$filepath"
+    fi
+
     if grep -q "^${key}=" "$filepath" 2>/dev/null; then
         # Key zaten var, değeri güncelle
         sed -i "s|^${key}=.*|${key}=${value}|" "$filepath"

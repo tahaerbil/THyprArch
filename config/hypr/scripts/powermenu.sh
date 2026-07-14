@@ -15,8 +15,15 @@ prof_perf="󰓅  Performans Modu"
 prof_bal="󰾆  Dengeli Mod"
 prof_save="󰒋  Güç Tasarrufu Modu"
 
+# Türk Kahvesi Modu Kontrolü (Caffeine)
+if pgrep -x "hypridle" > /dev/null; then
+    cafe="  Türk Kahvesi Modu: Pasif"
+else
+    cafe="  Türk Kahvesi Modu: Aktif"
+fi
+
 # Seçenekleri birleştir
-options="$shutdown\n$reboot\n$lock\n$suspend\n$logout\n$divider\n$prof_perf\n$prof_bal\n$prof_save"
+options="$shutdown\n$reboot\n$lock\n$suspend\n$logout\n$divider\n$prof_perf\n$prof_bal\n$prof_save\n$cafe"
 
 # Rofi'yi çalıştır ve seçimi al (Yeni Avant-Garde temamızı kullanıyoruz)
 chosen="$(echo -e "$options" | rofi -dmenu \
@@ -45,7 +52,7 @@ case $chosen in
         hyprlock & sleep 1 && systemctl suspend
         ;;
     "$logout")
-        hyprctl dispatch exit
+        command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'
         ;;
     "$prof_perf")
         powerprofilesctl set performance
@@ -58,5 +65,13 @@ case $chosen in
     "$prof_save")
         powerprofilesctl set power-saver
         notify-send -h string:x-canonical-private-synchronous:sys-notify -u normal -i "power-profile-power-saver" "Sistem" "Güç tasarrufu moduna geçildi."
+        ;;
+    *"Türk Kahvesi Modu: Pasif"*)
+        killall hypridle
+        notify-send -h string:x-canonical-private-synchronous:sys-notify -u normal -i "coffee" "Türk Kahvesi Modu" "Kahveniz hazır! Ekran kararmayacak ve kilitlenmeyecek. ☕"
+        ;;
+    *"Türk Kahvesi Modu: Aktif"*)
+        hypridle &
+        notify-send -h string:x-canonical-private-synchronous:sys-notify -u normal -i "hypridle" "Türk Kahvesi Modu" "Kahve bitti! Ekran koruyucu ve kilit tekrar aktif. 💤"
         ;;
 esac

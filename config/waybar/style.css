@@ -41,8 +41,21 @@ window#waybar {
 #network,
 #bluetooth,
 #tray,
+#power-profiles-daemon,
 #battery {
     padding: 0 10px;
+}
+
+#power-profiles-daemon.performance {
+    color: #f38ba8; /* Yumuşak kırmızı */
+}
+
+#power-profiles-daemon.balanced {
+    color: #1793d1; /* Arch mavisi */
+}
+
+#power-profiles-daemon.power-saver {
+    color: #a6e3a1; /* Yumuşak yeşil */
 }
 
 /* Mikrofonu hoparlörden görsel olarak ayırmak istersen rengini değiştirebilirsin */
